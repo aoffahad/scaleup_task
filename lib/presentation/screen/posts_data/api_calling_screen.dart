@@ -10,9 +10,11 @@ class ApiCallingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(postDataProvider);
-    print(data);
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text('Data From API'),
+      ),
       body: data.when(
         data: (data) {
           List<PostsData> postList = data.map((e) => e).toList();
