@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:scaleup_task/api_calling_screen.dart';
-import 'package:scaleup_task/home_screen.dart';
-import 'package:scaleup_task/local_database_screen.dart';
+import 'package:scaleup_task/presentation/screen/home_screen/home_screen.dart';
+import 'package:scaleup_task/presentation/screen/local_database_screen/local_database_screen.dart';
+
+import 'presentation/screen/posts_data/api_calling_screen.dart';
 
 class HandlerScreen extends StatefulWidget {
   const HandlerScreen({super.key});
@@ -17,6 +18,7 @@ class _HandlerScreenState extends State<HandlerScreen> {
     const HomeScreen(),
     const ApiCallingScreen(),
     const LocalDatabaseScreen(),
+    const LocalDatabaseScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -28,8 +30,7 @@ class _HandlerScreenState extends State<HandlerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.black,
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.black,
       body: IndexedStack(
         // Keeps the state of screens
         index: _selectedIndex,
@@ -38,7 +39,6 @@ class _HandlerScreenState extends State<HandlerScreen> {
       bottomNavigationBar: SafeArea(
         child: Container(
           height: 60,
-          // padding: const EdgeInsets.only(top: 5),
           margin: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.6),
@@ -49,26 +49,34 @@ class _HandlerScreenState extends State<HandlerScreen> {
                     offset: const Offset(0, 20),
                     blurRadius: 20)
               ]),
-          child: BottomNavigationBar(
-            backgroundColor: Colors.transparent,
-            selectedItemColor: Colors.red,
-            unselectedItemColor: Colors.white70,
-            currentIndex: _selectedIndex,
-            onTap: _onItemTapped,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.tv),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.download),
-                label: '',
-              ),
-            ],
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24), // Clip the navigation bar
+            child: BottomNavigationBar(
+              backgroundColor: Colors.black,
+              selectedItemColor: Colors.red,
+              unselectedItemColor: Colors.white70,
+              currentIndex: _selectedIndex,
+              type: BottomNavigationBarType.fixed,
+              onTap: _onItemTapped,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.tv),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.download),
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person),
+                  label: '',
+                ),
+              ],
+            ),
           ),
         ),
       ),
