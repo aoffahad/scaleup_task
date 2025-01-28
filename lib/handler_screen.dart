@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scaleup_task/presentation/screen/home_screen/home_screen.dart';
 import 'package:scaleup_task/presentation/screen/local_database_screen/local_database_screen.dart';
+import 'package:scaleup_task/presentation/screen/profile_screen/profile_screen.dart';
 
 import 'presentation/screen/posts_data/api_calling_screen.dart';
 
@@ -18,7 +19,7 @@ class _HandlerScreenState extends State<HandlerScreen> {
     const HomeScreen(),
     const ApiCallingScreen(),
     const LocalDatabaseScreen(),
-    const LocalDatabaseScreen(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -30,29 +31,29 @@ class _HandlerScreenState extends State<HandlerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xff11161f),
       body: IndexedStack(
-        // Keeps the state of screens
         index: _selectedIndex,
         children: _screens,
       ),
       bottomNavigationBar: SafeArea(
         child: Container(
           height: 60,
-          margin: const EdgeInsets.symmetric(horizontal: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.6),
+              // color: const Color(0xff11161f),
+              color: Colors.transparent,
               borderRadius: BorderRadius.circular(24),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    offset: const Offset(0, 20),
+                    color: Color(0xff11161f),
+                    offset: Offset(0, 20),
                     blurRadius: 20)
               ]),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(24), // Clip the navigation bar
+            borderRadius: BorderRadius.circular(24),
             child: BottomNavigationBar(
-              backgroundColor: Colors.black,
+              backgroundColor: const Color(0xff1d1f24),
               selectedItemColor: Colors.red,
               unselectedItemColor: Colors.white70,
               currentIndex: _selectedIndex,
