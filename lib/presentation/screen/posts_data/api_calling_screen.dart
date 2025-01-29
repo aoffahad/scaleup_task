@@ -17,19 +17,19 @@ class ApiCallingScreen extends ConsumerWidget {
         title: const Text('Data From API'),
         centerTitle: true,
       ),
-      body: data.when(
-        data: (data) {
-          List<PostsData> postList = data.map((e) => e).toList();
+      body: RefreshIndicator(
+        color: Colors.white,
+        backgroundColor: Colors.grey,
+        strokeWidth: 3.0,
+        onRefresh: () async {
+          ref.invalidate(postDataProvider);
+          await Future.delayed(const Duration(seconds: 1));
+        },
+        child: data.when(
+          data: (data) {
+            List<PostsData> postList = data.map((e) => e).toList();
 
-          return RefreshIndicator(
-            color: Colors.white,
-            backgroundColor: Colors.grey,
-            strokeWidth: 3.0,
-            onRefresh: () async {
-              ref.invalidate(postDataProvider);
-              await Future.delayed(const Duration(seconds: 1));
-            },
-            child: ListView.builder(
+            return ListView.builder(
               itemCount: postList.length,
               itemBuilder: (_, index) {
                 final post = postList[index];
@@ -63,17 +63,32 @@ class ApiCallingScreen extends ConsumerWidget {
                   ),
                 );
               },
-            ),
-          );
-        },
-        error: (error, stackTrace) => Center(
-          child: Text(
-            'Error: $error',
-            style: const TextStyle(color: Colors.red),
+            );
+          },
+          error: (error, stackTrace) => ListView(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.4,
+              ),
+              Center(
+                child: Text(
+                  'Error: $error',
+                  style: const TextStyle(color: Colors.red),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
           ),
-        ),
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
+          loading: () => ListView(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.4,
+              ),
+              const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ],
+          ),
         ),
       ),
     );
